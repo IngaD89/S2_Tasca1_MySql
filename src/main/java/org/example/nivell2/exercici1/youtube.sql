@@ -3,7 +3,6 @@ CREATE TABLE youtube.users(
 id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 created_at TIMESTAMP NOT NULL,
 updated_at TIMESTAMP NOT NULL,
-encrypted_password VARCHAR(100) NOT NULL,
 user_name VARCHAR (100) NOT NULL,
 birth_data TIMESTAMP NOT NULL,
 sex ENUM ('Female', 'Male', 'Prefer not to respond') NOT NULL,
@@ -32,7 +31,6 @@ duration FLOAT NOT NULL,
 thumbnail_path VARCHAR(100) NOT NULL,
 playback_number INT NOT NULL,
 status ENUM ('Public', 'Private', 'Hide') NOT NULL,
-tag VARCHAR(60) NOT NULL,
 CONSTRAINT FK_user_video FOREIGN KEY(user_id) REFERENCES users(id)
 );
 --Done--
@@ -107,4 +105,18 @@ playlist_id INT NOT NULL,
 video_id INT NOT NULL,
 CONSTRAINT FK_user_playlist_video FOREIGN KEY(playlist_id) REFERENCES playlist(id),
 CONSTRAINT FK_video_playlist FOREIGN KEY(video_id) REFERENCES video(id)
+);
+
+--done--
+CREATE TABLE tag(
+id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+name VARCHAR(20) NOT NULL
+);
+
+--done--
+CREATE TABLE video_tag(
+tag_id INT NOT NULL,
+video_id INT NOT NULL,
+CONSTRAINT FK_tag FOREIGN KEY (tag_id) REFERENCES tag(id),
+CONSTRAINT FK_video_tag FOREIGN KEY (video_id) REFERENCES video(id)
 );
